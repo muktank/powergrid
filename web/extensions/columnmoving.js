@@ -17,6 +17,14 @@ function loadColumnOrder(grid) {
     }
 }
 
+function setColumnOrder(keyIndexMap, grid) {
+    if (keyIndexMap !== undefined && keyIndexMap !== null && keyIndexMap !== "") {
+        grid.options.columns.sort(function (a, b) {
+            return (keyIndexMap[a.key] - keyIndexMap[b.key]);
+        })
+    }
+}
+
 export default {
     loadFirst: ['filtering'],
     requires: {
@@ -26,6 +34,11 @@ export default {
     init: function (grid) {
         override(grid, function ($super) {
             return {
+                columnmoving: {
+                    setColumnOrder: function (keyIndexMap) {
+                        setColumnOrder(keyIndexMap, grid);
+                    }
+                },
                 init: function () {
                     var start, end, idx, oidx, startconfig, wasOutOfBounds;
                     var columnMoved = false;
