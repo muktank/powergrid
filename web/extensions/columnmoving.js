@@ -22,6 +22,7 @@ function setColumnOrder(keyIndexMap, grid) {
         grid.options.columns.sort(function (a, b) {
             return (keyIndexMap[a.key] - keyIndexMap[b.key]);
         })
+        grid.adjustColumnPositions(false);
     }
 }
 
